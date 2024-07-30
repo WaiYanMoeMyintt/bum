@@ -2,3 +2,15 @@
 @tailwind components;
 @tailwind utilities;
   
+
+:root {
+    --primary:#fefdfc;
+    --btn-primary:#6060fd; 
+    --first-color:#f2f4f5;
+}
+body {
+    background-color: var(--primary);
+}
+.nav_primary_btn{
+    background-color: var(--btn-primary);
+}
