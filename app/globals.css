@@ -10,6 +10,7 @@
 }
 body {
     background-color: var(--primary);
+    height: 97vh;
 }
 .nav_primary_btn{
     background-color: var(--btn-primary);
