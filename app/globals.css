@@ -7,6 +7,8 @@
     --primary:#fefdfc;
     --btn-primary:#6060fd; 
     --first-color:#f2f4f5;
+    --second-color:#f3f5f7;
+    --third-color:#4d4471;
 }
 body {
     background-color: var(--primary);
@@ -22,4 +24,10 @@ body {
 }
 footer{
     background-color: #ffefe5;
+}
+.sidebar_content {
+    background-color: #f3f5f7;
+}
+.user_title{
+    color: var(--third-color);
 }

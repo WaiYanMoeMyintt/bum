@@ -1,15 +1,20 @@
-'use client';
-import React, {createContext} from 'react'
-import HomePage from '../components/home/HomePage';
-export const BumBumContext  =  createContext();
-import Image from 'next/image';
-const BumBum = () => {
-  return (
-      <BumBumContext.Provider value = "">
-          <HomePage />
-          {/* <Image src = "/banner.png" alt = "banner" width = {500} height = {500}/> */}
-      </BumBumContext.Provider>
-  )
-}
+"use client";
+import React, { createContext } from "react";
+import HomePage from "../components/home/HomePage";
+import { useAuth } from "@clerk/nextjs";
+import Dashboard from "../components/Dashboard";
+export const BumBumContext = createContext();
 
-export default BumBum
+const BumBum = ({ children }) => {
+  const { isLoaded, userId, sessionId, getToken } = useAuth();
+  console.log(userId);
+  return (
+    <BumBumContext.Provider value="">
+      {children}
+      {!userId && <HomePage />}
+      {userId && <Dashboard />}
+    </BumBumContext.Provider>
+  );
+};
+
+export default BumBum;

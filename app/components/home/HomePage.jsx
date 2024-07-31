@@ -11,7 +11,6 @@ const HomePage = () => {
          <Intro />
          <Profile />
          <Card />
-      
          <Footer />
     </div>
   )
