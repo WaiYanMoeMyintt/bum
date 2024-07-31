@@ -3,6 +3,7 @@ import Nav from './Nav'
 import Intro from './Intro'
 import Profile from './Profile'
 import Card from './Card'
+import Footer from './Footer'
 const HomePage = () => {
   return (
     <div>
@@ -10,6 +11,8 @@ const HomePage = () => {
          <Intro />
          <Profile />
          <Card />
+      
+         <Footer />
     </div>
   )
 }
