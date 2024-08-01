@@ -1,6 +1,7 @@
 import React from "react";
 import { SignOutButton, useUser } from "@clerk/nextjs";
 import Image from "next/image";
+import General from "./tasks/General";
 const Sidebar = () => {
   const { user } = useUser();
   console.log(user);
@@ -18,8 +19,10 @@ const Sidebar = () => {
             />
             <p className = "text-sm  font-bold user_title select-none">{user?.fullName ? user.fullName : "BumBum's Space"}</p>
           </div>
-          <Image src="/Shield.svg" alt="shield" width={20} height={20} />
+          <Image src="/book.svg" alt="shield" width={20} height={20} />
         </div>
+
+        <General />
         <SignOutButton>SignOut</SignOutButton>
       </div>
     </div>
