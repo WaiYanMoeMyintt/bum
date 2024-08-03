@@ -8,10 +8,8 @@ export const BumBumContext = createContext();
 const BumBum = ({ children }) => {
   const { isLoaded, userId, sessionId, getToken } = useAuth();
   const [hover, setHover] = useState(1);
-  console.log(userId);
   return (
-    <BumBumContext.Provider value= {{hover,setHover}}>
-      {children}
+    <BumBumContext.Provider value= {{hover,setHover, children}}>
       {!userId && <HomePage />}
       {userId && <Dashboard />}
     </BumBumContext.Provider>

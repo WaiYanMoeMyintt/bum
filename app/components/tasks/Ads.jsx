@@ -8,7 +8,7 @@ const Ads = () => {
         View benefits you can explore, <br /> feel the pro featuers
       </p>
 
-      <Button className = "w-full sidebar_content text-black hover:bg-slate-100   py-1 mt-2.5">Buy Pro</Button>
+      <Button className = "w-full sidebar_content text-black hover:bg-slate-100   py-1 mt-2.5"> $5/month</Button>
     </div>
   );
 };

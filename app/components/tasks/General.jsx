@@ -5,8 +5,7 @@ import Link from "next/link";
 import Board from "./Board";
 import { BumBumContext } from "@/app/context/BumBum";
 const General = () => {
-
-  const {hover, setHover} = useContext(BumBumContext);
+  const { hover, setHover } = useContext(BumBumContext);
   return (
     <>
       <div className="mt-5 px-1">
@@ -14,8 +13,9 @@ const General = () => {
           <h3 className="text-slate-500 text-sm">General</h3>
         </div>
         <div className="general_list flex flex-col gap-6 mt-4">
-          <div
+          <Link
             onClick={() => setHover(1)}
+            href="/today"
             className={`flex items-center gap-2 py-2.5 px-4 rounded-lg cursor-pointer ${
               hover == 1
                 ? "bg-white shadow-sm transition-all"
@@ -29,8 +29,9 @@ const General = () => {
               height={20}
             />
             <p className="text-sm">Today</p>
-          </div>
-          <div
+          </Link>
+          <Link
+            href="/inbox"
             onClick={() => setHover(2)}
             className={`flex items-center gap-2 py-2.5 px-4 rounded-lg cursor-pointer ${
               hover == 2
@@ -45,8 +46,9 @@ const General = () => {
               height={20}
             />
             <p className="text-sm">Inbox</p>
-          </div>
-          <div
+          </Link>
+          <Link
+            href="/calendar"
             onClick={() => setHover(3)}
             className={`flex items-center gap-2 py-2.5 px-4 rounded-lg cursor-pointer ${
               hover == 3
@@ -61,8 +63,9 @@ const General = () => {
               height={20}
             />
             <p className="text-sm">Calendar</p>
-          </div>
-          <div
+          </Link>
+          <Link
+            href="/trash"
             onClick={() => setHover(4)}
             className={`flex items-center gap-2 py-2.5 px-4 rounded-lg cursor-pointer ${
               hover == 4
@@ -76,7 +79,7 @@ const General = () => {
               height={20}
             />
             <p className="text-sm">Trash</p>
-          </div>
+          </Link>
         </div>
       </div>
     </>
