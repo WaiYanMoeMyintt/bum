@@ -77,10 +77,10 @@ const Nav = () => {
           </div>
           <div className="w-full border-b my-2.5"></div>
           <div className="flex justify-center items-center gap-2 mt-4">
-            <SignInButton className="bg-slate-200 text-black hover:bg-slate-300 transition-all w-full ">
+            <SignInButton className="bg-slate-200 text-black hover:bg-slate-300 transition-all w-full py-2 px-2 rounded-md">
               Login
             </SignInButton>
-            <SignUpButton className="w-full nav_primary_btn hover:bg-indigo-700 transition-all ">
+            <SignUpButton className="w-full nav_primary_btn hover:bg-indigo-700 transition-all  py-2 px-2 rounded-md ">
               Start for free
             </SignUpButton>
           </div>
