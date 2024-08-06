@@ -13,6 +13,17 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+
 const CurrentDate = () => {
   const date = new Date();
   return (
@@ -24,7 +35,7 @@ const CurrentDate = () => {
             {date.toLocaleDateString("en-US", { month: "short" })}
           </h3>
         </div>
-        <Dialog className="task_button">
+        <Dialog className="task_button overflow-y-auto">
           <DialogTrigger asChild>
             <Button className=" nav_primary_btn hover:bg-indigo-700 transition-all  py-1.5 px-2.5 rounded-md">
               <Plus className="mr-1" /> New Task
@@ -51,20 +62,54 @@ const CurrentDate = () => {
                 </div>
               </div>
               <div className="w-full flex flex-col  gap-4">
+                <div>
+                  <Label htmlFor="name" className="text-right mb-2">
+                    Task Description
+                  </Label>
+                  <Textarea placeholder="eg. Buy a comic books" className = "mt-2" />
+                </div>
+              </div>
+              <div className="w-full flex flex-col  gap-2">
+              <Label htmlFor="name" className="text-left ">
+                    Status
+                  </Label>
+                <Select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="On Going" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Your Task Status</SelectLabel>
+                      <SelectItem value="apple">In Progress</SelectItem>
+                      <SelectItem value="banana">Deadline</SelectItem>
+                      <SelectItem value="blueberry">ASAP</SelectItem>
+                      <SelectItem value="grapes">Un-Done</SelectItem>
+                      <SelectItem value="pineapple">Completed</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+
               <div>
                   <Label htmlFor="name" className="text-right">
-                    Task Description
+                    Add comment
                   </Label>
                   <Input
                     id="name"
-                    defaultValue="e.g. to buy comic books"
+                    defaultValue="e.g. buy budget "
                     className="col-span-3 mt-2 text-slate-700 text-sm"
                   />
                 </div>
-              </div>
+
+
             </div>
             <DialogFooter>
-              <Button type="submit" className = "bg-indigo-600 w-full hover:bg-indigo-800">Create Task</Button>
+              <Button
+                type="submit"
+                className="bg-indigo-600 w-full hover:bg-indigo-800"
+              >
+                Create Task
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
