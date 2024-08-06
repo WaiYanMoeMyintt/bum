@@ -12,8 +12,6 @@ const Calendar = () => {
         <h3 className = "text-[#352e5d] font-semibold text-xl">Calendar</h3>
       </div>
       <hr className = "mt-2 shadow-md" />
-
-      <CurrentDate />
     </div>
   );
 };

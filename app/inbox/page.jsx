@@ -13,7 +13,6 @@ const Inbox = () => {
       </div>
       <hr className = "mt-2 shadow-md" />
 
-      <CurrentDate />
     </div>
   );
 };
