@@ -11,7 +11,7 @@ const Sidebar = () => {
   const [column, setColumn] = useState(false);
 
   return (
-    <div className={`py-2 px-2.5 sidebar_content  ${!column ? "w-60 transition-all" : "w-36 transition-all"} transition-all duration-300`}>
+    <div className={`py-2 px-2.5 sidebar_content  ${!column ? "w-72 transition-all" : "w-48 transition-all"} transition-all duration-300`}>
       <div className="sidebar">
         <div className="sidbar_title cursor-pointer flex py-1.5 px-1.5 bg-white gap-2.5 items-center justify-between shadow-sm rounded-lg">
           <div className="flex gap-1 items-center">

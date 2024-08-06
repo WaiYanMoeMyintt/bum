@@ -6,13 +6,10 @@ import { Button } from "@/components/ui/button";
 import { BumBumContext } from "../context/BumBum";
 const GeneralList = () => {
   const {children} = useContext(BumBumContext);
-  console.log(children);
 
   return (
-    <div>
-      <h2>General</h2>
+    <div className = "px-2 py-2.5  w-full">
       {children}
-      {/* Example button to navigate to Today page */}
     </div>
   );
 };

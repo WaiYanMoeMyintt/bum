@@ -8,11 +8,10 @@ const Dashboard = ({children}) => {
   const {user}  = useUser();
 
   return (
-    <div className = "flex justify-between  h-full">
+    <div className = "flex gap-4 w-full h-full ">
         <Sidebar />
         {children}
         <GeneralList />
-        <DetailsView />
     </div>
   )
 }
