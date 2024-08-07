@@ -7,7 +7,7 @@ const Tasklist = ({today}) => {
   const date = new Date();
 
   return (
-    <div className="mt-4 flex items-center h-screen px-1  gap-2 flex-wrap flex-1 w-full">
+    <div className="mt-4 flex items-center  px-1  gap-2 flex-wrap flex-1 w-full">
       {
         today && today.map((items,index)=>(
           <div className="tasks_content w-96 h-22 my-1 py-2 cursor-pointer px-4 flex gap-4 items-center rounded-xl">
