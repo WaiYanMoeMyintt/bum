@@ -2,26 +2,7 @@
 import React ,{useState, useEffect}  from "react";
 import CurrentDate from "./CurrentDate";
 import Tasklist from "./Tasklist";
-import axios from "axios";
 const Today = () => {
-  const [today, setToday]  = useState();
-  useEffect(()=>{
-      const api = "/api/today_list";
-      const getCurrentTodayList = async ()=>{
-           try {
-              const getData = await axios.get(api);
-              setToday(getData?.data?.today);
-           }
-           catch (err){
-              return err.message;
-           }
-      }
-      getCurrentTodayList();
-  },[]);
-
-
-
-
   return (
     <div className="today_content w-100 ">
       <div className="today_title flex gap-2 items-center">
@@ -35,7 +16,6 @@ const Today = () => {
       <hr className = "mt-2 shadow-md" />
 
       <CurrentDate />
-      <Tasklist today = {today}/>
     </div>
   );
 };

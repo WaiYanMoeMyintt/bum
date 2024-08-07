@@ -8,10 +8,12 @@ export async function GET(){
           await connectDatabase;
           const today = await BumBumModel.find();
           return NextResponse.json({today});
+     
       }
       catch (err){
         return NextResponse.json(err.message);
       }
+
 }
 
 export async function POST(request){
