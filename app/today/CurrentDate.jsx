@@ -66,13 +66,16 @@ const CurrentDate = () => {
                   <Label htmlFor="name" className="text-right mb-2">
                     Task Description
                   </Label>
-                  <Textarea placeholder="eg. Buy a comic books" className = "mt-2" />
+                  <Textarea
+                    placeholder="eg. Buy a comic books"
+                    className="mt-2"
+                  />
                 </div>
               </div>
               <div className="w-full flex flex-col  gap-2">
-              <Label htmlFor="name" className="text-left ">
-                    Status
-                  </Label>
+                <Label htmlFor="name" className="text-left ">
+                  Status
+                </Label>
                 <Select>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="On Going" />
@@ -91,17 +94,15 @@ const CurrentDate = () => {
               </div>
 
               <div>
-                  <Label htmlFor="name" className="text-right">
-                    Add comment
-                  </Label>
-                  <Input
-                    id="name"
-                    defaultValue="e.g. buy budget "
-                    className="col-span-3 mt-2 text-slate-700 text-sm"
-                  />
-                </div>
-
-
+                <Label htmlFor="name" className="text-right">
+                  Add comment
+                </Label>
+                <Input
+                  id="name"
+                  defaultValue="e.g. buy budget "
+                  className="col-span-3 mt-2 text-slate-700 text-sm"
+                />
+              </div>
             </div>
             <DialogFooter>
               <Button
