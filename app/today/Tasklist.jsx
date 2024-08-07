@@ -7,10 +7,10 @@ const Tasklist = ({today}) => {
   const date = new Date();
 
   return (
-    <div className="mt-4 flex items-center gap-2 flex-wrap flex-1 w-full">
+    <div className="mt-4 flex items-center h-screen px-1  gap-2 flex-wrap flex-1 w-full">
       {
         today && today.map((items,index)=>(
-          <div className="tasks_content w-96 my-1 py-2 cursor-pointer px-4 flex gap-4 items-center rounded-xl">
+          <div className="tasks_content w-96 h-22 my-1 py-2 cursor-pointer px-4 flex gap-4 items-center rounded-xl">
           <Checkbox />
           <div className="">
             <h3 className="text-[#352e5d] mb-0.5">{items?.title}</h3>
@@ -30,7 +30,7 @@ const Tasklist = ({today}) => {
               </div>
               <div className="flex items-center gap-1">
                 
-                <p className="text-slate-800 bg-green-500 text-[10px] px-1  rounded-md">{items?.status}</p>
+                <p className="text-white bg-green-500 text-[10px] px-1  rounded-md">{items?.status}</p>
               </div>
             </div>
           </div>

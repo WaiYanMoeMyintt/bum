@@ -2,7 +2,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import useSWR, { mutate } from "swr";
 import Tasklist from "./Tasklist";
 import { statusList } from "@/lib/status";
 import {
@@ -34,20 +33,11 @@ const CurrentDate = () => {
   const [task, setTask] = useState();
   const [status, setStatus] = useState();
 
-  //implement swr
-  // Fetcher function for SWR
-  const fetcher = (url) => fetch(url).then((res) => res.json());
-  const { data, error, isLoading } = useSWR("/api/today_list", fetcher, {
-    refreshInterval: 3000,
-  });
-
   // Refs for inputs
   const titleRef = useRef(null);
   const descRef = useRef(null);
   const commentRef = useRef(null);
   
-  console.log(status);
-  //callback function
 
   // Handler for form submission
   const handleCreateTask = async (event) => {
