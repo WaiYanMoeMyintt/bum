@@ -14,7 +14,7 @@ import {
   UserPlus,
   Users,
   Pencil,
-  Trash2 
+  Trash2,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -72,17 +72,24 @@ export default function DropdownMenuDemo() {
             <span>Edit</span>
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem className = "cursor-pointer">
-            <Trash2  className="mr-2 h-4 w-4" />
-            <span>Delete</span>
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-          </DropdownMenuItem>
-          <DropdownMenuItem  className = "cursor-pointer">
+
+          <DropdownMenuItem className="cursor-pointer">
             <Settings className="mr-2 h-4 w-4" />
             <span>Settings</span>
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
 
+          <DropdownMenuItem className="cursor-pointer">
+            <Image
+              alt="trash"
+              src="/task_trash.svg"
+              width={10}
+              height={10}
+              className="mr-2 h-4 w-4"
+            />
+            <span className="text-red-400">Delete</span>
+            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+          </DropdownMenuItem>
         </DropdownMenuGroup>
 
         <DropdownMenuSeparator />
