@@ -3,6 +3,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Timer } from "lucide-react";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
+import DropdownMenuDemo from "./TaskActions";
 import {
   Tooltip,
   TooltipContent,
@@ -26,21 +27,7 @@ const Tasklist = ({ today }) => {
             <div className="w-full">
               <div className="flex justify-between items-centerw-full">
                 <h3 className="text-[#352e5d] mb-0.5">{items?.title}</h3>
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Image
-                        src="/three_dots.svg"
-                        alt="time"
-                        width={20}
-                        height={20}
-                      />
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>More task actions</p>
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
+                <DropdownMenuDemo />
               </div>
               <p className="text-sm text-slate-500">{items?.description}</p>
               <div className="time flex gap-2 text-sm items-center mt-2.5 ">
