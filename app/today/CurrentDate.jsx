@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import Tasklist from "./Tasklist";
 import { statusList } from "@/lib/status";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Dialog,
   DialogContent,
@@ -31,35 +32,45 @@ import axios from "axios";
 const CurrentDate = () => {
   const date = new Date();
   const [task, setTask] = useState();
-  const [status, setStatus] = useState();
+  const [status, setStatus] = useState("Doing");
+  const [titleErr, setTitleErr] = useState();
+  const [descErr, setDescErr] = useState();
+  const [statusErr, setStatusErr] = useState(); 
 
   // Refs for inputs
   const titleRef = useRef(null);
   const descRef = useRef(null);
   const commentRef = useRef(null);
-  
 
   // Handler for form submission
+  console.log(status);
   const handleCreateTask = async (event) => {
     event.preventDefault();
     const title = titleRef.current.value;
     const description = descRef.current.value;
     const comment = commentRef.current.value;
-    try {
-      const api = "/api/today_list";
-      const postData = await axios.post(api, {
-        headers: {
-          "Content-type": "application/json",
-        },
-        title: title,
-        description: description,
-        comment: comment,
-        status: status
-      });
-      console.log(postData.data);
-      window.location.reload();
-    } catch (err) {
-      return err.message;
+
+    if (!title && !description && status) {
+      setDescErr("Description is missing");
+      setTitleErr("Title is missing");
+    }
+    if (title && description) {
+      try {
+        const api = "/api/today_list";
+        const postData = await axios.post(api, {
+          headers: {
+            "Content-type": "application/json",
+          },
+          title: title,
+          description: description,
+          comment: comment,
+          status: status,
+        });
+        console.log(postData.data);
+        window.location.reload();
+      } catch (err) {
+        return err.message;
+      }
     }
   };
 
@@ -67,7 +78,9 @@ const CurrentDate = () => {
     const fetchingTasks = async () => {
       try {
         const url = "/api/today_list";
-        const fetchData = await axios.get(url);
+        const fetchData = await axios.get(url, {
+          next: { revalidate: 1000 },
+        });
         setTask(fetchData?.data);
       } catch (err) {
         return err.message;
@@ -114,6 +127,7 @@ const CurrentDate = () => {
                         className="col-span-3 mt-2 text-slate-700 text-sm"
                         ref={titleRef}
                       />
+                        <p className = {`${!titleErr ? "text-red-500 text-sm mt-0.5 hidden" : "text-red-500 text-sm mt-0.5 block"} `}>Title is missing</p>
                     </div>
                   </div>
                   <div className="w-full flex flex-col gap-4">
@@ -126,24 +140,26 @@ const CurrentDate = () => {
                         className="mt-2"
                         ref={descRef}
                       />
+                     <p className = {`${!descErr ? "text-red-500 text-sm mt-0.5 hidden" : "text-red-500 text-sm mt-0.5 block"} `}>Description is missing</p>
                     </div>
                   </div>
                   <div className="w-full flex flex-col gap-2">
                     <Label htmlFor="status" className="text-left">
                       Status
                     </Label>
-                    <Select  value={status} onValueChange={setStatus}> 
+                    <Select  value={status} onValueChange={setStatus}>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="On Going" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectGroup>
                           <SelectLabel>Your Task Status</SelectLabel>
-                          {
-                            statusList && statusList.map((items,index)=>(
-                              <SelectItem key = {index} value={items?.name}>{items?.name}</SelectItem>
-                            ))
-                          }
+                          {statusList &&
+                            statusList.map((items, index) => (
+                              <SelectItem key={index} value={items?.name}>
+                                {items?.name}
+                              </SelectItem>
+                            ))}
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -174,7 +190,7 @@ const CurrentDate = () => {
           </Dialog>
         </div>
       </div>
-      <Tasklist today = {task?.today} />
+      <Tasklist today={task?.today} />
     </>
   );
 };

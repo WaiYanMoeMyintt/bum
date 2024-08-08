@@ -1,6 +1,9 @@
 import mongoose from "mongoose";
 
-const date  = new Date();
+
+const currentHour = ()=> new Date().getHours();
+
+const currentMinute = ()=> new Date().getMinutes();
 
 
 const BumBumSchema = new mongoose.Schema(
@@ -21,6 +24,16 @@ const BumBumSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    currentHours:{
+      type: Number,
+      default: currentHour
+    },
+    currentMinute:{
+      type: Number,
+      default: currentMinute
+    },
+
+    
   },
   {
     timestamps: true,
