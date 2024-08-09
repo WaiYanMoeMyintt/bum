@@ -16,6 +16,18 @@ export async function GET(){
 
 }
 
+export async function DELETE(request){
+     try {
+       await connectDatabase();
+       const {title} = await request.json();
+       await BumBumModel.deleteOne({title});
+       return NextResponse.json({message:"success"});
+     }
+     catch (err){
+        return err.message;
+     }
+}
+
 export async function POST(request){
      try {
          const {title, description,status, comment} = await request.json();

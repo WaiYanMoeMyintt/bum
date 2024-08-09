@@ -43,7 +43,7 @@ const CurrentDate = () => {
   const commentRef = useRef(null);
 
   // Handler for form submission
-  console.log(status);
+
   const handleCreateTask = async (event) => {
     event.preventDefault();
     const title = titleRef.current.value;
@@ -78,9 +78,7 @@ const CurrentDate = () => {
     const fetchingTasks = async () => {
       try {
         const url = "/api/today_list";
-        const fetchData = await axios.get(url, {
-          next: { revalidate: 1000 },
-        });
+        const fetchData = await axios.get(url);
         setTask(fetchData?.data);
       } catch (err) {
         return err.message;
@@ -89,7 +87,6 @@ const CurrentDate = () => {
 
     fetchingTasks();
   }, []);
-  console.log(task);
   return (
     <>
       <div>
@@ -109,13 +106,9 @@ const CurrentDate = () => {
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
                 <DialogTitle>Add New Task</DialogTitle>
-                <DialogDescription>
-                  Make changes to your profile here. Click save when you're
-                  done.
-                </DialogDescription>
               </DialogHeader>
               <form>
-                <div className="grid gap-4 py-4">
+                <div className="grid gap-4 py-2">
                   <div className="w-full flex flex-col gap-4">
                     <div>
                       <Label htmlFor="name" className="text-right">
