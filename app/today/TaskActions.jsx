@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useRef, useContext } from "react";
 import {
   Cloud,
   CreditCard,
@@ -16,10 +16,20 @@ import {
   Users,
   Pencil,
   Trash2,
-} from 'lucide-react';
-import Image from 'next/image';
-
-import { Button } from '@/components/ui/button';
+} from "lucide-react";
+import Image from "next/image";
+import { statusList } from "@/lib/status";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,26 +38,77 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  DropdownMenuShortcut
-} from '@/components/ui/dropdown-menu';
+  DropdownMenuShortcut,
+} from "@/components/ui/dropdown-menu";
 
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import AlertDialogDemo from './Alerts';
-
+} from "@/components/ui/tooltip";
+import AlertDialogDemo from "./Alerts";
+import { TaskItems } from "./Tasklist";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import axios from "axios";
 export default function DropdownMenuDemo() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [status, setStatus] = useState("Doing");
+  const [titleErr, setTitleErr] = useState();
+  const [descErr, setDescErr] = useState();
+  const [statusErr, setStatusErr] = useState();
 
+  // Refs for inputs
+  const titleRef = useRef(null);
+  const descRef = useRef(null);
+  const commentRef = useRef(null);
   const openDialog = () => {
     setIsDialogOpen(true);
   };
 
   const closeDialog = () => {
     setIsDialogOpen(false);
+  };
+
+  const taskItems = useContext(TaskItems);
+ 
+  const updateTask = async (event) => {
+    const title = titleRef?.current?.value;
+    const description = descRef?.current?.value;
+    const comment = commentRef?.current?.value;
+
+    event.preventDefault();
+    if (taskItems) {
+      try {
+        const api = "/api/today_list";
+        if (title && description && status) {
+          const updateData = await axios.put(api, {
+            data: {
+              title: title,
+              description: description,
+              comment: comment,
+              status: status,
+            },
+          }); 
+          console.log(updateData.data);
+          // window.location.reload();
+        }
+      } 
+      
+      catch (err) {
+        return err.message;
+      }
+    }
   };
 
   return (
@@ -76,11 +137,98 @@ export default function DropdownMenuDemo() {
           <DropdownMenuLabel>Edit Task Action</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuGroup>
-            <DropdownMenuItem className="cursor-pointer">
-              <Pencil className="mr-2 h-4 w-4" />
-              <span>Edit</span>
-              <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-            </DropdownMenuItem>
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="w-full px-2 cursor-pointer flex bg-transparent text-black">
+                  <Pencil className="mr-2 h-4 w-4" />
+                  <span className="flex text-sm">Edit Task</span>
+                </div>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[425px]">
+                <DialogHeader>
+                  <DialogTitle>Edit Task</DialogTitle>
+                  <DialogDescription>
+                    Make changes to your profile here. Click save when you're
+                    done.
+                  </DialogDescription>
+                </DialogHeader>
+                <form onSubmit = {updateTask}>
+                  <div className="grid gap-4 py-2">
+                    <div className="w-full flex flex-col gap-4">
+                      <div>
+                        <Label htmlFor="name" className="text-right">
+                          Task Title
+                        </Label>
+                        <Input
+                          id="name"
+                          placeholder="e.g. Going to book shop"
+                          className="col-span-3 mt-2 text-slate-700 text-sm"
+                          ref={titleRef}
+                        />
+                        {/* <p className = {`${!titleErr ? "text-red-500 text-sm mt-0.5 hidden" : "text-red-500 text-sm mt-0.5 block"} `}>Title is missing</p> */}
+                      </div>
+                    </div>
+                    <div className="w-full flex flex-col gap-4">
+                      <div>
+                        <Label
+                          htmlFor="description"
+                          className="text-right mb-2"
+                        >
+                          Task Description
+                        </Label>
+                        <Textarea
+                          placeholder="e.g. Buy comic books"
+                          className="mt-2"
+                          ref={descRef}
+                        />
+                        {/* <p className = {`${!descErr ? "text-red-500 text-sm mt-0.5 hidden" : "text-red-500 text-sm mt-0.5 block"} `}>Description is missing</p> */}
+                      </div>
+                    </div>
+                    <div className="w-full flex flex-col gap-2">
+                      <Label htmlFor="status" className="text-left">
+                        Status
+                      </Label>
+                      <Select value={status} onValueChange={setStatus}>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="On Going" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectLabel>Your Task Status</SelectLabel>
+                            {statusList &&
+                              statusList.map((items, index) => (
+                                <SelectItem key={index} value={items?.name}>
+                                  {items?.name}
+                                </SelectItem>
+                              ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label htmlFor="comment" className="text-right">
+                        Add comment
+                      </Label>
+                      <Input
+                        id="comment"
+                        placeholder="e.g. buy budget (optional)"
+                        className="col-span-3 mt-2 text-slate-700 text-sm"
+                        ref={commentRef}
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Button
+                      type="submit"
+                      onClick = {updateTask}
+                      className="bg-indigo-600 w-full hover:bg-indigo-800"
+                    >
+                      Update Task
+                    </Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
 
             <DropdownMenuItem className="cursor-pointer">
               <Settings className="mr-2 h-4 w-4" />
@@ -105,9 +253,7 @@ export default function DropdownMenuDemo() {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {isDialogOpen && (
-        <AlertDialogDemo onClose={closeDialog} />
-      )}
+      {isDialogOpen && <AlertDialogDemo onClose={closeDialog} />}
     </>
   );
 }

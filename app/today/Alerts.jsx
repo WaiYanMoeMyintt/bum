@@ -28,7 +28,6 @@ export default function AlertDialogDemo({ onClose }) {
           },
         });
         window.location.reload();
-        console.log(getData);
         if (!res.ok) {
           return "Fail!";
         }
