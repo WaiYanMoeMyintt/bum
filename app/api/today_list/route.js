@@ -23,21 +23,6 @@ export async function DELETE(request) {
   }
 }
 
-export async function PUT(request) {
-  try {
-    const { title, description, status, comment } = await request.json();
-    await connectDatabase();
-    const results =  await BumBumModel.updateOne(
-      { title: title },
-      { $set: { description, status, comment } }
-    );
-    
-    return NextResponse.json({ message: results }, { status: 201 });
-  } catch (err) {
-    return err.message;
-  }
-}
-
 export async function POST(request) {
   try {
     const { title, description, status, comment } = await request.json();

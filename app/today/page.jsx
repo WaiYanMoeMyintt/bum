@@ -2,8 +2,10 @@
 import React ,{useState, useEffect}  from "react";
 import CurrentDate from "./CurrentDate";
 import Tasklist from "./Tasklist";
-const Today = () => {
+import TaskItemsId from "./[...id]/page";
+const Today = ({children}) => {
   return (
+   <div className = "flex justify-between w-full gap-4 ">
     <div className="today_content w-100 ">
       <div className="today_title flex gap-2 items-center">
         <p className = "text-[#726c8d] text-sm">General  </p>
@@ -16,7 +18,10 @@ const Today = () => {
       <hr className = "mt-2 shadow-md" />
 
       <CurrentDate />
+    
     </div>
+    <TaskItemsId  />
+   </div>
   );
 };
 

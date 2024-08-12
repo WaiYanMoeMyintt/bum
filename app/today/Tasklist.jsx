@@ -4,6 +4,7 @@ import { Timer } from "lucide-react";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 import DropdownMenuDemo from "./TaskActions";
+import Link from "next/link";
 import {
   Tooltip,
   TooltipContent,
@@ -24,7 +25,7 @@ const Tasklist = ({ today }) => {
     <div className="mt-4 flex items-center  px-1  gap-2 flex-wrap flex-1 w-full">
       {today &&
         today.map((items, index) => (
-          <div className="tasks_content w-96 h-22 my-1 py-2 cursor-pointer px-4 flex gap-4 items-center rounded-xl">
+          <Link href = {`/today/${items?._id}`}  className="tasks_content w-96 h-22 my-1 py-2 cursor-pointer px-4 flex gap-4 items-center rounded-xl">
             <Checkbox />
             <div className="w-full">
               <div className="flex justify-between items-center w-full">
@@ -57,7 +58,7 @@ const Tasklist = ({ today }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         ))}
     </div>
   );
