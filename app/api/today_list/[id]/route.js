@@ -19,7 +19,7 @@ export async function PUT(req, {params}){
       try {
          await connectDatabase();
          const {title, description, status} = await req.json();
-         await BumBumModel.findByIdAndUpdate(id, {title,description,status});
+         await BumBumModel.findByIdAndUpdate(id, {title,description,status}, { new: true });
          return NextResponse.json({message:"update success"});
       }
       catch(err) {

@@ -15,22 +15,18 @@ import { Button } from "@/components/ui/button";
 import { TaskItems } from "./Tasklist";
 export default function AlertDialogDemo({ onClose }) {
   const today = useContext(TaskItems);
-
+console.log(today)
   const deleteTaskItems = async () => {
     if (today) {
       try {
         const api = "/api/today_list";
         const getData = await axios.delete(api, {
-          data: {
-            title: today?.map((items) => {
-              return items?.title;
-            }),
-          },
-        });
+         _id:today?.map((items) => {
+            return items?._id;
+          }),
+        })
+        consoel.log(getData)
         window.location.reload();
-        if (!res.ok) {
-          return "Fail!";
-        }
       } catch (err) {
         return err.message;
       }
