@@ -1,22 +1,5 @@
-import React, { useState, useRef, useContext } from "react";
-import {
-  Cloud,
-  CreditCard,
-  Github,
-  Keyboard,
-  LifeBuoy,
-  LogOut,
-  Mail,
-  MessageSquare,
-  Plus,
-  PlusCircle,
-  Settings,
-  User,
-  UserPlus,
-  Users,
-  Pencil,
-  Trash2,
-} from "lucide-react";
+import React, { useState, useRef, useContext, useEffect } from "react";
+import { Settings, Pencil } from "lucide-react";
 import Image from "next/image";
 import { statusList } from "@/lib/status";
 import { Button } from "@/components/ui/button";
@@ -47,7 +30,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import AlertDialogDemo from "./Alerts";
+
 import { TaskItems } from "./Tasklist";
 import {
   Dialog,
@@ -60,8 +43,20 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import DeleteTask from "./DeleteTask";
 import axios from "axios";
-export default function DropdownMenuDemo() {
+export default function UpdateTask() {
+  const today = useContext(TaskItems);
+  const [id, setId] = useState("");
+
+  useEffect(() => {
+    today?.map((items, index) => {
+      setId(items?._id);
+    });
+  }, [today]);
+
+  console.log(id);
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [status, setStatus] = useState("Doing");
   const [titleErr, setTitleErr] = useState();
@@ -81,31 +76,26 @@ export default function DropdownMenuDemo() {
   };
 
   const taskItems = useContext(TaskItems);
- 
+
   const updateTask = async (event) => {
     const title = titleRef?.current?.value;
     const description = descRef?.current?.value;
     const comment = commentRef?.current?.value;
-
     event.preventDefault();
     if (taskItems) {
       try {
-        const api = "/api/today_list";
-        if (title && description && status) {
+        const api = `/api/today_list/${id}`;
+        if (title && description) {
           const updateData = await axios.put(api, {
-            data: {
-              title: title,
-              description: description,
-              comment: comment,
-              status: status,
-            },
-          }); 
-          console.log(updateData.data);
-          // window.location.reload();
+            title: title,
+            description: description,
+            status: status,
+            comment: comment,
+          });
+          window.location.reload();
+          return updateData;
         }
-      } 
-      
-      catch (err) {
+      } catch (err) {
         return err.message;
       }
     }
@@ -152,7 +142,7 @@ export default function DropdownMenuDemo() {
                     done.
                   </DialogDescription>
                 </DialogHeader>
-                <form onSubmit = {updateTask}>
+                <form onSubmit={updateTask}>
                   <div className="grid gap-4 py-2">
                     <div className="w-full flex flex-col gap-4">
                       <div>
@@ -220,7 +210,7 @@ export default function DropdownMenuDemo() {
                   <DialogFooter>
                     <Button
                       type="submit"
-                      onClick = {updateTask}
+                      onClick={updateTask}
                       className="bg-indigo-600 w-full hover:bg-indigo-800"
                     >
                       Update Task
@@ -253,7 +243,7 @@ export default function DropdownMenuDemo() {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {isDialogOpen && <AlertDialogDemo onClose={closeDialog} />}
+      {isDialogOpen && <DeleteTask onClose={closeDialog} />}
     </>
   );
 }

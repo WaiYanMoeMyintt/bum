@@ -13,24 +13,28 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { TaskItems } from "./Tasklist";
-export default function AlertDialogDemo({ onClose }) {
+export default function DeleteTask({ onClose }) {
   const today = useContext(TaskItems);
-console.log(today)
+  const [id, setId] = useState("");
+
+  useEffect(() => {
+    today?.map((items, index) => {
+      console.log(items?._id);
+      setId(items?._id);
+    });
+  }, [today]);
   const deleteTaskItems = async () => {
     if (today) {
       try {
-        const api = "/api/today_list";
+        const api = `/api/today_list/${id}`;
         const getData = await axios.delete(api, {
-         _id:today?.map((items) => {
-            return items?._id;
-          }),
-        })
-        consoel.log(getData)
+          _id: id,
+        });
         window.location.reload();
+        consoel.log(getData);
       } catch (err) {
         return err.message;
       }
-      deleteTaskItems();
     }
   };
 

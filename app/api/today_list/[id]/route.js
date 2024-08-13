@@ -26,3 +26,16 @@ export async function PUT(req, {params}){
          return err.message;
       }
 }
+
+export async function DELETE(req, {params}){
+   const {id}  = params;
+     try {
+         await connectDatabase();
+         await BumBumModel.findByIdAndDelete(id);
+         return NextResponse.json({message:"delete success"});
+     }
+     catch (err){
+        return err.message;
+     }
+
+}
